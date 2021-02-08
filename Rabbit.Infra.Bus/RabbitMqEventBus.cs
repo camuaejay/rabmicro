@@ -7,6 +7,7 @@
     using Rabbit.Domain.Core.Events.Base;
     using Rabbit.Domain.Core.Events.Interfaces;
     using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -83,7 +84,10 @@
 
                     handlers[eventName].Add(handlerType);
 
-                    channel.QueueDeclare(eventName, false, false, false, null);
+                    StartBasicConsume<T>();
+
+                    // channel.QueueDeclare(eventName, false, false, false, null);
+
 
                     //var consumer = Consumer
 
@@ -92,6 +96,69 @@
                     //var body = Encoding.UTF8.GetBytes(message);
 
                     //channel.BasicPublish("", eventName, null, body);
+                }
+            }
+        }
+
+        private void StartBasicConsume<T>() where T : Event
+        {
+            var factory = new ConnectionFactory() { 
+                HostName = "localhost",
+                DispatchConsumersAsync = true
+            };
+
+            var connection = factory.CreateConnection();
+            var channel = connection.CreateModel();
+
+            var eventName = typeof(T).Name;
+
+            channel.QueueDeclare(eventName, false, false, false, null);
+
+            var consumer = new AsyncEventingBasicConsumer(channel);
+
+            consumer.Received += ConsumerReceived;
+
+            channel.BasicConsume(eventName, true, consumer);
+        }
+
+        private async Task ConsumerReceived(object sender, BasicDeliverEventArgs e)
+        {
+            var eventName = e.RoutingKey;
+
+            var message = Encoding.UTF8.GetString(e.Body.ToArray());
+
+            try
+            {
+                await ProcessEvent(eventName, message).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
+        private async Task ProcessEvent(string eventName, string message)
+        {
+            if (this.handlers.ContainsKey(eventName)) 
+            {
+                var subscriptions = this.handlers[eventName];
+
+                foreach (var subscription in subscriptions)
+                {
+                    var handler = Activator.CreateInstance(subscription);
+
+                    if (handler != null)
+                    {
+                        continue;
+                    }
+
+                    var eventType = this.eventTypes.SingleOrDefault(t => t.Name == eventName);
+                    var @event = JsonConvert.DeserializeObject(message, eventType);
+                    var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
+
+                    await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { @event });
                 }
             }
         }
