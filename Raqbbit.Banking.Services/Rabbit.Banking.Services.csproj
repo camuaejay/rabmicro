@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rabbit.Banking.Data\Rabbit.Banking.Data.csproj" />
+    <ProjectReference Include="..\Rabbit.Banking.Infrastructure\Rabbit.Banking.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
