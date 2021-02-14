@@ -1,5 +1,10 @@
 ﻿namespace Rabbit.Infra.Bus
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using MediatR;
     using Newtonsoft.Json;
     using Rabbit.Domain.Core.Bus.EventBus.Interfaces;
@@ -8,11 +13,6 @@
     using Rabbit.Domain.Core.Events.Interfaces;
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public sealed class RabbitMqEventBus : IEventBus
     {
@@ -102,7 +102,8 @@
 
         private void StartBasicConsume<T>() where T : Event
         {
-            var factory = new ConnectionFactory() { 
+            var factory = new ConnectionFactory()
+            {
                 HostName = "localhost",
                 DispatchConsumersAsync = true
             };
@@ -133,7 +134,6 @@
             }
             catch (Exception ex)
             {
-
                 throw;
             }
 
