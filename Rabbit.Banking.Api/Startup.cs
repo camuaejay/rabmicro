@@ -1,12 +1,12 @@
 namespace Rabbit.Banking.Api
 {
     using MediatR;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
     using Rabbit.Banking.Data.Context;
     using Rabbit.Infra.IoC.Containers;
@@ -65,7 +65,7 @@ namespace Rabbit.Banking.Api
             app.UseRouting();
 
             app.UseAuthorization();
- 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
