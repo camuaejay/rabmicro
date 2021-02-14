@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-namespace Rabbit.Banking.Api.Controllers
+﻿namespace Rabbit.Banking.Api.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Rabbit.Banking.Api.Extensions.Account;
@@ -18,6 +18,8 @@ namespace Rabbit.Banking.Api.Controllers
             this.accountService = accountService;
         }
 
+
+        [HttpGet()]
         public async Task<ActionResult<WebResponse<IEnumerable<AccountModel>>>> GetAccounts()
         {
             var result = await this.accountService.GetAccountsAsync();

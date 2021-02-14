@@ -15,12 +15,8 @@
                 {
                     Id = entity.Id,
                     Balance = entity.Balance,
-<<<<<<< HEAD
                     AccountTypeId = entity.AccountTypeId,
-                    AccountNumber = entity.AccountNumber 
-=======
-                    AccountTypeId = entity.AccountTypeId
->>>>>>> ec6ec048469ed4a6230f6a210415c4455040ad38
+                    AccountNumber = entity.AccountNumber
                 };
             }
 
@@ -32,12 +28,8 @@
 
             var result = new List<AccountModel>();
 
-            result =
-            entities.Select(entity => new AccountModel() {
-<<<<<<< HEAD
+            result = entities.Select(entity => new AccountModel() {
                 AccountNumber = entity.AccountNumber,
-=======
->>>>>>> ec6ec048469ed4a6230f6a210415c4455040ad38
                 Id = entity.Id,
                 Balance = entity.Balance,
                 AccountTypeId = entity.AccountTypeId
