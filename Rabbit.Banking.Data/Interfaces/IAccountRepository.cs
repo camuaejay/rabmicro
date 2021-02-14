@@ -7,5 +7,7 @@
     public interface IAccountRepository
     {
         Task<IEnumerable<AccountEntity>> GetAccounts();
+
+        Task<AccountEntity> GetAccount(string accountNumber);
     }
 }

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Rabbit.Banking.Infrastructure.Entities;
+    using Rabbit.Banking.Infrastructure.Messages.Requests.Account;
     using Rabbit.Banking.Infrastructure.Models;
 
     public static class AccountExtension
@@ -36,6 +37,18 @@
             }).ToList();
 
             return result;
+        }
+
+        public static AccountTransferRequest AsRequest(this AccountTransferWebRequest webRequest) 
+        {
+            var request = new AccountTransferRequest()
+            {
+                Amount = webRequest.Amount,
+                FromAccountNumber = webRequest.FromAccountNumber,
+                ToAccountNumber = webRequest.ToAccountNumber
+            };
+
+            return request;
         }
     }
 }

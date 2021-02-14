@@ -1,4 +1,4 @@
-﻿namespace Rabbit.Banking.Infrastructure.Messages.Response.Account
+﻿namespace Rabbit.Banking.Infrastructure.Messages.Responses.Account
 {
     using System;
     using System.Collections.Generic;
