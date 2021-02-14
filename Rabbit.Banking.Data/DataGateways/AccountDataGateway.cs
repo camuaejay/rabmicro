@@ -21,9 +21,9 @@
         {
             try
             {
-                var result = await this.accountRepository.GetAccounts();
-                return result.AsModels();
-            }
+            var result = await this.accountRepository.GetAccounts();
+            return result.AsModels();
+        }
             catch (Exception ex)
             {
                 throw new AccountDataException(ex.Message.ToString(), ex.InnerException);

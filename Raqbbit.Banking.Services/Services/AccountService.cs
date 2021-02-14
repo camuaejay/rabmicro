@@ -38,7 +38,7 @@
                 return response; 
             }
             catch (Exception ex)
-            {
+        {
                 throw new AccountServiceException(ex.Message.ToString(), ex.InnerException);
             }  
         }
