@@ -17,6 +17,11 @@
             this.bankingDbContext = bankingDbContext;
         }
 
+        public async Task<AccountEntity> GetAccount(string accountNumber)
+        {
+            return await bankingDbContext.Accounts.Select(a => a).Where(x => x.AccountNumber == accountNumber).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<AccountEntity>> GetAccounts()
         {
             return await bankingDbContext.Accounts.Select(a => a).ToListAsync();

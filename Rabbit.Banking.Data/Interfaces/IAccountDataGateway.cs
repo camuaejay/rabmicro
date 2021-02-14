@@ -7,5 +7,7 @@
     public interface IAccountDataGateway
     {
         Task<IEnumerable<AccountModel>> GetAccounts();
+
+        Task<AccountModel> GetAccount(string accountNumber);
     }
 }

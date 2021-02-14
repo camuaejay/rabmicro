@@ -17,13 +17,26 @@
             this.accountRepository = accountRepository;
         }
 
+        public async Task<AccountModel> GetAccount(string accountNumber)
+        {
+            try
+            {
+                var result = await this.accountRepository.GetAccount(accountNumber);
+                return result.AsModel();
+            }
+            catch (Exception ex)
+            {
+                throw new AccountDataException(ex.Message.ToString(), ex.InnerException);
+            }
+        }
+
         public async Task<IEnumerable<AccountModel>> GetAccounts()
         {
             try
             {
-            var result = await this.accountRepository.GetAccounts();
-            return result.AsModels();
-        }
+                var result = await this.accountRepository.GetAccounts();
+                return result.AsModels();
+            }
             catch (Exception ex)
             {
                 throw new AccountDataException(ex.Message.ToString(), ex.InnerException);

@@ -1,4 +1,4 @@
-﻿namespace Rabbit.Banking.Infrastructure.Messages.Response
+﻿namespace Rabbit.Banking.Infrastructure.Messages.Responses
 {
     using Newtonsoft.Json;
 
